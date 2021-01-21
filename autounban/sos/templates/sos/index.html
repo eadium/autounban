@@ -1,0 +1,47 @@
+<head>
+<title>AutoUnban</title>
+{% load static %}
+<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+<a href="{% url 'index' %}"><h1>AutoUnban</h1></a>
+
+{% if user.is_authenticated %}
+    <ul>
+        <li>User: {{ user.get_username }}</li>
+        <li><a href="{% url 'logout'%}?next={{request.path}}"><button type="button">Logout</button></a></li>   
+    </ul>
+    <a href="{% url 'logs'%}"><button type="button">Logs</button></a>
+
+    {% if data %}
+        {% if data.ok %}
+            <h3 style="color:green">{{ data.message }}</h3>
+            <p>Added IPs for hostname <b>{{ data.url }}:</b></p>
+            {% for ip in data.ips %}
+                <p>{{ ip|linebreaks }}</p>
+            {% endfor %}
+        {% else %}
+            <h3 style="color:red">{{ data.message }}</h3>
+            <p>Was going to add IPs for hostname <b>{{ data.url }}:</b></p>
+            {% for ip in data.ips %}
+                <pre>{{ ip|linebreaks }}</pre>
+            {% endfor %}
+            <h4>Logs from console:</h4>
+            <pre>{{ data.journal|linebreaks }}</pre>
+        {% endif %}
+    {% endif %}
+
+    <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        </br>
+        </br>
+        <input type="submit" value="Save">
+    </form>
+
+{% else %}
+    <a href="{% url 'login'%}?next={{request.path}}"><button type="button">Login</button></a> 
+{% endif %} 
+
+</body>

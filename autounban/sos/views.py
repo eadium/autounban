@@ -18,7 +18,7 @@ __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 __homepath__ = str(Path.home())
 
-ssh_query = "ssh admin@192.168.88.1 /ip route add dst-address={} gateway=LD8 distance=1 comment={} via autounban"
+ssh_query = 'ssh admin@192.168.88.1 /ip route add dst-address={} gateway=LD8 distance=1 comment=\"{} via autounban\"'
 # ssh_query = "echo {} {} > /dev/null"
 logging.basicConfig(filename=os.path.join(__location__, '../access.log'), filemode='a', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 url_regexp = re.compile("(\w+\.)+.\w+")

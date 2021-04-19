@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = '&wi0nfx6w1n%v2#w-_krc^5n@8q9dkb@-ki-k%gqp^4&4+1-6g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,6 +51,38 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'autounban.urls'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "normal"},
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "autounban.log"),
+            "formatter": "normal",
+        },
+    },
+    "formatters": {
+        "normal": {
+            "format": "{levelname} {asctime} {funcName} {message}",
+            "style": "{",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file", "console"],
+            "level": "INFO",
+            "propagate": False,
+        }
+    },
+    "root": {
+        "handlers": ["console", "file"],
+        "level": "INFO",
+    },
+}
+
 
 TEMPLATES = [
     {

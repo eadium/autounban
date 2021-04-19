@@ -90,7 +90,7 @@ def add(request):
 
 @login_required
 def logs(request):
-    with open(os.path.join(__location__, '../access.log'), 'r') as f:
+    with open(os.path.join(__location__, '../autounban.log'), 'r') as f:
         logs = f.readlines()
     logs = [x.strip() for x in logs]
     return render(request, 'sos/logs.html', {'logs': logs})
